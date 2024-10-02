@@ -1,12 +1,16 @@
 
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using Store.Data.Context;
 using Store.Repository;
 using Store.Repository.Interfaces;
 using Store.Repository.Repositories;
+using Store.Service.HandleResponse;
 using Store.Service.Services.Product;
 using Store.Service.Services.Product.Dtos;
+using Store.Web.Extentions;
 using Store.Web.Helper;
 using Store.Web.MiddleWares;
 
@@ -26,10 +30,16 @@ namespace Store.Web
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); 
             });
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddScoped<IProductService, ProductService>();
-            builder.Services.AddAutoMapper(typeof(ProductProfile));
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
+            {
+                var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+
+            builder.Services.AddAlicationServices();
+
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -47,7 +57,6 @@ namespace Store.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthorization();
-            // ggggggggggg
 
             app.MapControllers();
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Ninject.Activation.Caching;
 using Store.Repository.Specification.Productspecs;
 using Store.Service.Services.Product;
 using Store.Service.Services.Product.Dtos;
@@ -24,7 +25,7 @@ namespace Store.Web.Controllers
         public async Task<ActionResult<IReadOnlyList<BrandTypeDetailDto>>> GetAllTypes()
           => Ok(await _productService.GetAllTypesAsync());
 
-        [HttpGet("GetAllProducts")]
+        [HttpGet] 
         public async Task<ActionResult<IReadOnlyList<ProductDetailsDto>>> GetAllProducts([FromQuery] ProductSpecification input)
          => Ok(await _productService.GetAllProductsAsync(input));
 

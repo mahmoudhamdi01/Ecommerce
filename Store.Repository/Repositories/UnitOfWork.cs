@@ -28,7 +28,7 @@ namespace Store.Repository.Repositories
 
             var entityKey = typeof(TEntity).Name;
             
-            if(_repository.ContainsKey(entityKey) )
+            if(!_repository.ContainsKey(entityKey) )
             {
                 var repositoryType = typeof(GenericRepositiry<,>);
                 var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity), typeof(TKey)), _context);

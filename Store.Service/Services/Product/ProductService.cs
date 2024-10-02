@@ -29,11 +29,11 @@ namespace Store.Service.Services.Product
             //IReadOnlyList<BrandTypeDetailDto> mappedBrands = Brands.Select(x => new BrandTypeDetailDto
             //{ 
             //    Id = x.Id,
-            //    Name = x.Name,
+            //    Name = x.Name, 
             //    CreatedAt = x.CreatedAt
             //}).ToList();
-            var mappedBrands = _mapper.Map<IReadOnlyList<ProductDetailsDto>>(Brands);
-            return (IReadOnlyList<BrandTypeDetailDto>)mappedBrands;
+            var mappedBrands = _mapper.Map<IReadOnlyList<BrandTypeDetailDto>>(Brands);
+            return mappedBrands;
 
         }
 
