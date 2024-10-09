@@ -15,7 +15,6 @@ namespace Store.Web.Extentions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICacheService, Cacheservices>();
-
             services.AddAutoMapper(typeof(ProductProfile));
             services.Configure<ApiBehaviorOptions>(options =>
             {
