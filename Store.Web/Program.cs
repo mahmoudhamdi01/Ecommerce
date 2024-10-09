@@ -41,10 +41,10 @@ namespace Store.Web
             });
 
             builder.Services.AddAlicationServices();
-            builder.Services.AddIdentityServices();
+            builder.Services.AddIdentityServices(builder.Configuration);
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerDocumintation();
 
             var app = builder.Build();
             await ApplySeeding.ApplySeedingAsync(app);

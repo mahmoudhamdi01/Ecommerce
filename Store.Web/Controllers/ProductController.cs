@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ninject.Activation.Caching;
 using Store.Repository.Specification.Productspecs;
@@ -7,9 +8,8 @@ using Store.Service.Services.Product.Dtos;
 
 namespace Store.Web.Controllers
 {
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class ProductController : ControllerBase
+    [Authorize]
+    public class ProductController : BaseController
     {
         private readonly IProductService _productService;
 
