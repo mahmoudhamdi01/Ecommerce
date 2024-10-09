@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +29,10 @@ namespace Store.Web
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); 
             });
+            builder.Services.AddDbContext<StoreIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+            });
 
             builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
             {
@@ -38,7 +41,7 @@ namespace Store.Web
             });
 
             builder.Services.AddAlicationServices();
-
+            builder.Services.AddIdentityServices();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -56,6 +59,7 @@ namespace Store.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
