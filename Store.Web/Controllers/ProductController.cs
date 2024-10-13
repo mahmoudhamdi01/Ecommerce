@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Ninject.Activation.Caching;
 using Store.Repository.Specification.Productspecs;
 using Store.Service.Services.Product;
 using Store.Service.Services.Product.Dtos;

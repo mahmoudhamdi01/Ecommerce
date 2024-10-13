@@ -10,6 +10,6 @@ namespace Store.Data.Entities.IDentityEntities
     {
         public int ProductID { get; set; }
         public string ProductName { get; set; }
-
+        public string PictureUrl { get; set; }
     }
 }

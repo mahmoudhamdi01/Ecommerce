@@ -41,7 +41,7 @@ namespace Store.Web
             });
 
             builder.Services.AddAlicationServices();
-            builder.Services.AddIdentityServices(builder.Configuration);
+            builder.Services.AddIdentityCollection(builder.Configuration);
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerDocumintation();
