@@ -46,6 +46,15 @@ namespace Store.Web
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerDocumintation();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:7186", "https://localhost:7186");
+                });
+            });
+          
+
             var app = builder.Build();
             await ApplySeeding.ApplySeedingAsync(app);
             // Configure the HTTP request pipeline.
@@ -59,6 +68,8 @@ namespace Store.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
 

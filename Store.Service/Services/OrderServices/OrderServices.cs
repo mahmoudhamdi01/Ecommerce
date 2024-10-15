@@ -6,6 +6,7 @@ using Store.Repository.Interfaces;
 using Store.Repository.Specification.OrderSpecifics;
 using Store.Service.Services.BasketServices;
 using Store.Service.Services.OrderServices.Dtos;
+using Store.Service.Services.PaymentService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,14 @@ namespace Store.Service.Services.OrderServices
         private readonly IBasketServices _basketServices;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IPaymentService _paymentService;
 
-        public OrderServices(IBasketServices basketServices, IUnitOfWork unitOfWork, IMapper mapper)
+        public OrderServices(IBasketServices basketServices, IUnitOfWork unitOfWork, IMapper mapper, IPaymentService paymentService)
         {
             _basketServices = basketServices;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _paymentService = paymentService;
         }
         public async Task<OrderDetailsDto> CreateOrderAsync(OrderDto input)
         {
@@ -97,6 +100,7 @@ namespace Store.Service.Services.OrderServices
         {
             var specs = new OrderWithItemSpecifications(Id);
             var orders = await _unitOfWork.Repository<Order, Guid>().GetWithSpecificationByIdAsync(specs);
+
             if (orders is null)
                 throw new Exception($"there is no order with id {Id}");
             var mappedOrders = _mapper.Map<OrderDetailsDto>(orders);
